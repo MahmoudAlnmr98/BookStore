@@ -1,7 +1,8 @@
 package com.bookstore.catalogservice.web.controllers;
 
 
-import com.bookstore.catalogservice.domain.ProductEntity;
+import com.bookstore.catalogservice.domain.PagedResult;
+import com.bookstore.catalogservice.domain.Product;
 import com.bookstore.catalogservice.domain.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ class ProductController
     }
 
     @GetMapping
-    Page<ProductEntity> getProducts(@RequestParam(name = "page", defaultValue = "1")int pageNo)
+    PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1")int pageNo)
     {
         return productService.getProducts(pageNo);
     }
