@@ -11,4 +11,9 @@ public class ProductNotFoundException extends RuntimeException
     {
         super(message);
     }
+
+    public static ProductNotFoundException forCode(String code)
+    {
+        return new ProductNotFoundException("product with code "+ code + " not found");
+    }
 }

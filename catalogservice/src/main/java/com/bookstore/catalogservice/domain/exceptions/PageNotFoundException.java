@@ -10,4 +10,9 @@ public class PageNotFoundException extends RuntimeException
     {
         super(message);
     }
+
+    public static PageNotFoundException forPage(int pageNo)
+    {
+        return new PageNotFoundException("page " + pageNo + " not found");
+    }
 }

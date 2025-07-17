@@ -28,7 +28,7 @@ class ProductController
     @GetMapping("/{code}")
     Optional<Product> getProductByCode(@PathVariable String code)
     {
-        return productService.getProductbyCode(code);
+        return productService.getProductByCode(code);
     }
 
 

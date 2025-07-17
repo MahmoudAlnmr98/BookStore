@@ -19,7 +19,7 @@ public class ProductService
 {
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository)
+    ProductService(ProductRepository productRepository)
     {
         this.productRepository = productRepository;
     }
@@ -31,7 +31,7 @@ public class ProductService
         Page<Product> pageResult =  productRepository.findAll(pageable).map(ProductMapper::toProduct);
         if(pageNo >= pageResult.getTotalPages() && pageResult.getTotalPages() != 0)
         {
-            throw new PageNotFoundException("page " + pageNo + " not found");
+            throw PageNotFoundException.forPage(pageNo);
         }
         return new PagedResult<>
             (
@@ -46,9 +46,9 @@ public class ProductService
             );
     }
 
-    public Optional<Product> getProductbyCode(String code)
+    public Optional<Product> getProductByCode(String code)
     {
         return Optional.of(productRepository.findByCode(code).map(ProductMapper::toProduct)
-                .orElseThrow(() -> new ProductNotFoundException("product with code "+ code + " not found")));
+                .orElseThrow(() -> ProductNotFoundException.forCode(code)));
     }
 }
