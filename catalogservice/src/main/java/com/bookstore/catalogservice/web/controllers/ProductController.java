@@ -20,9 +20,11 @@ class ProductController
     }
 
     @GetMapping
-    PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1")int pageNo)
+    PagedResult<Product> getProducts
+            (@RequestParam(name = "page", defaultValue = "1")int pageNo,
+            @RequestParam(name ="size", defaultValue = "10")int pageSize)
     {
-        return productService.getProducts(pageNo);
+        return productService.getProducts(pageNo,pageSize);
     }
 
     @GetMapping("/{code}")

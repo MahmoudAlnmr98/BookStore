@@ -24,10 +24,10 @@ public class ProductService
         this.productRepository = productRepository;
     }
 
-    public PagedResult<Product> getProducts(int pageNo)
+    public PagedResult<Product> getProducts(int pageNo, int pageSize)
     {
         pageNo = pageNo <=1 ? 0 : pageNo -1 ;
-        Pageable pageable = PageRequest.of(pageNo, 10 , Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(pageNo, pageSize , Sort.by("name").ascending());
         Page<Product> pageResult =  productRepository.findAll(pageable).map(ProductMapper::toProduct);
         if(pageNo >= pageResult.getTotalPages() && pageResult.getTotalPages() != 0)
         {
