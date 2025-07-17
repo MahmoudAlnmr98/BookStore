@@ -20,6 +20,21 @@ public class GlobalExceptionHandler
 {
     private static final String SERVICE_NAME = "catalog-service";
     private static final URI NOT_FOUND = URI.create("https://api.bookstore.com/errors/not-found");
+    private static final URI ISE_FOUND_TYPE = URI.create("https://api.bookstore.com/errors/server-error");
+
+
+    @ExceptionHandler(Exception.class)
+    ProblemDetail handleUnhandledException(Exception e)
+    {
+        ProblemDetail problemDetail =
+                ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        problemDetail.setTitle("Internal Server Error");
+        problemDetail.setType(ISE_FOUND_TYPE);
+        problemDetail.setProperty("service", SERVICE_NAME);
+        problemDetail.setProperty("error_category", "Generic");
+        problemDetail.setProperty("timestamp", Instant.now());
+        return problemDetail;
+    }
     @ExceptionHandler({PageNotFoundException.class, ProductNotFoundException.class})
     public ProblemDetail handleNotFound(RuntimeException ex)
     {
